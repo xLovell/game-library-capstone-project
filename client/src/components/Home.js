@@ -1,12 +1,12 @@
 import React from "react";
 
-function Profile() {
+function Home() {
 
     return (
         <div >
-            <h1>profile page</h1>
+            <h1>Home page</h1>
         </div>
     )
 }
 
-export default Profile
+export default Home
