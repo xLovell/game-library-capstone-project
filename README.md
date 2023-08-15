@@ -8,6 +8,7 @@ A video game library app where a user can login, add games to their library, wri
 
 As a user I can:
 - sign up/login
+- logout
 - customize my profile (display name, profile picture, bio)
 - see a sortable list of all games
 - add/remove games to/from my library
