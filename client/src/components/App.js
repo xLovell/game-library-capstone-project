@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { gamesAtom } from "../atoms"
 import NavBar from "./NavBar";
 import NewGame from "./NewGame";
 import NewReview from "./NewReview";
@@ -12,7 +14,7 @@ import Home from "./Home";
 const API = 'http://localhost:5555/'
 
 function App() {
-	const [games, setGames] = useState([])
+	const [games, setGames] = useRecoilState(gamesAtom)
 
 	useEffect(() => {
 		fetch(`${API}games`)
