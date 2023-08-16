@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response
+from flask import request, make_response, session
 from flask_restful import Resource
 
 # Local imports
@@ -41,24 +41,6 @@ class Index(Resource):
 class Users(Resource):
     def get(self):
         return make_response(get_all_dict(User), 200)
-
-    def post(self):
-        json = request.get_json()
-        try:
-            new_user = User(
-                username = json["username"],
-                password = json["password"],
-                image = json["image"],
-                display_name = json["display_name"],
-                bio = json["bio"]
-            )
-            db.session.add(new_user)
-            db.session.commit()
-            
-            return make_response(new_user.to_dict(), 200)
-        
-        except ValueError:
-            return make_response({"errors": ["validation errors"]}, 400)
 
 class UsersByID(Resource):
     def get(self, id):
@@ -155,6 +137,57 @@ class ReviewsByID(Resource):
 
     def delete(self, id):
         return delete_by_id(Review, id)
+    
+class Signup(Resource):
+        
+        def post(self):
+            json = request.get_json()
+            try:
+                new_user = User(
+                    username = json["username"],
+                    image = json["image"],
+                    display_name = json["display_name"],
+                    bio = json["bio"]
+                )
+                new_user.password_hash=json['password']
+                db.session.add(new_user)
+                db.session.commit()
+
+                session['user_id'] = new_user.id
+
+                return make_response(new_user.to_dict(), 200)
+
+            except ValueError:
+                return make_response({"errors": ["validation errors"]}, 400)
+            
+class Login(Resource):
+    
+    def post(self):
+        username = request.get_json()['username']
+        user = User.query.filter(User.username == username).first()
+
+        password = request.get_json()['password']
+
+        if user.authenticate(password):
+            session['user_id'] = user.id
+            return user.to_dict(), 200
+
+        return {'error': 'Invalid username or password'}, 401
+
+class CheckSession(Resource):
+
+    def get(self):
+        user = User.query.filter(User.id == session.get('user_id')).first()
+        if user:
+            return user.to_dict()
+        else:
+            return {}, 204
+
+class Logout(Resource):
+    
+    def delete(self):
+        session['user_id'] = None
+        return {'message': '204: No Content'}, 204
 
 
 api.add_resource(Index, "/")
@@ -166,6 +199,10 @@ api.add_resource(UserGames, "/usergames")
 api.add_resource(UserGamesByID, "/usergames/<int:id>")
 api.add_resource(Reviews, "/reviews")
 api.add_resource(ReviewsByID, "/reviews/<int:id>")
+api.add_resource(Signup, "/signup")
+api.add_resource(CheckSession, '/check_session')
+api.add_resource(Login, '/login')
+api.add_resource(Logout, '/logout')
 
 
 if __name__ == '__main__':
