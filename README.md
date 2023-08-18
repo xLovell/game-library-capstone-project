@@ -10,7 +10,7 @@ As a user I can:
 - sign up/login
 - logout
 - customize my profile (display name, profile picture, bio)
-- see a sortable list of all games
+- see a list of all games with search function
 - add/remove games to/from my library
 - add a game to the site that everyone can see/review/add to library
 - create reviews for games

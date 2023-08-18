@@ -5,3 +5,15 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+.body {
+  margin-left: 10%;
+	margin-right: 15%;
+}
+
+.navbar {
+  margin-bottom: 3%;
+}
+
+.review-button {
+  float: right;
+}

@@ -168,7 +168,7 @@ class Login(Resource):
 
         password = request.get_json()['password']
 
-        if user.authenticate(password):
+        if user and user.authenticate(password):
             session['user_id'] = user.id
             return user.to_dict(), 200
 
@@ -177,11 +177,12 @@ class Login(Resource):
 class CheckSession(Resource):
 
     def get(self):
-        user = User.query.filter(User.id == session.get('user_id')).first()
-        if user:
-            return user.to_dict()
+        user_id = session.get('user_id')
+        if user_id:
+            user = User.query.filter(User.id == user_id).first()
+            return user.to_dict(), 200
         else:
-            return {}, 204
+            return {'message': '401: Not Authorized'}, 401
 
 class Logout(Resource):
     
