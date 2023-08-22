@@ -31,7 +31,7 @@ function NewGame() {
 
     return (
         <div >
-            <h1>new game form</h1>
+            <h1>Add New Game</h1>
             <form onSubmit={e => handleSubmit(e)}>
                 <div className="ui focus input"> <input type="text" name="name" value={newGame.name} placeholder="Name" autoComplete="off" onChange={handleChange} required/> </div>
                 <div className="ui focus input"> <input type="text" name="image" value={newGame.image} placeholder="Image" autoComplete="off" onChange={handleChange} required/> </div>

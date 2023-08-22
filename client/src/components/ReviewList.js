@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { currentGameAtom, apiAtom, allReviewsAtom } from "../atoms";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { NavLink, Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import ReviewCard from './ReviewCard';
 import { Button, Card } from "semantic-ui-react";
@@ -8,12 +8,20 @@ import { Button, Card } from "semantic-ui-react";
 function ReviewList() {
     const currentGame = useRecoilValue(currentGameAtom)
     const API = useRecoilValue(apiAtom)
-    const allReviews = useRecoilValue(allReviewsAtom)
+    const [allReviews, setAllReviews] = useRecoilState(allReviewsAtom)
     const [gameReviews, setGameReviews] = useState([])
 
     useEffect(() => {
-        setGameReviews(allReviews.filter(r => r.game_id === currentGame.id))
+        fetch(`${API}reviews`)
+            .then(res => res.json())
+            .then(data => {
+                setAllReviews(data)
+            })
     }, [])
+
+    useEffect(() => {
+        setGameReviews(allReviews.filter(r => r.game_id === currentGame.id))
+    }, [allReviews, currentGame])
 
     return (
         <div >

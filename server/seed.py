@@ -57,8 +57,8 @@ if __name__ == '__main__':
         # db.session.add_all(users)
         # db.session.commit()
 
-        games = create_games()
-        db.session.add_all(games)
+        # games = create_games()
+        # db.session.add_all(games)
         db.session.commit()
 
         # reviews = create_random_reviews()

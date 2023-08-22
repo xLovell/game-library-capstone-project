@@ -19,7 +19,6 @@ function App() {
 	const [games, setGames] = useRecoilState(gamesAtom)
 	const [user, setUser] = useRecoilState(userAtom)
 	const API = useRecoilValue(apiAtom)
-	const setAllReviews = useSetRecoilState(allReviewsAtom)
 	const setAllUsers = useSetRecoilState(allUsersAtom)
 
 	useEffect(() => {
@@ -28,12 +27,6 @@ function App() {
 			.then(data => {
 				// console.log(data)
 				setGames(data)
-			})
-		fetch(`${API}reviews`)
-			.then(res => res.json())
-			.then(data => {
-				// console.log(data)
-				setAllReviews(data)
 			})
 		fetch(`${API}users`)
 			.then(res => res.json())

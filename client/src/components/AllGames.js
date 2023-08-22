@@ -10,7 +10,7 @@ function AllGames() {
 
     return (
         <div >
-            <h1>all games list</h1>
+            <h1>All Games</h1>
             <Input
             style={{marginBottom: "1%"}}
             focus
