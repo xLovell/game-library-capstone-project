@@ -42,7 +42,7 @@ function Signup() {
         <div >
             {user ? <Redirect to="/" /> :
             <div>
-                <h1>signup page</h1>
+                <h1>Sign up</h1>
                 <form onSubmit={e => handleSubmit(e)} >
                     <div className="ui input"> <input type="text" name="username" value={newUser.username} placeholder="Username" autoComplete="off" onChange={handleChange} required/> </div>
                     <div className="ui input"> <input type="password" name="password" value={newUser.password} placeholder="Password" autoComplete="off" onChange={handleChange} required/> </div>

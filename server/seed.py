@@ -22,15 +22,15 @@ from models import User, Game, UserGame, Review, db
 #         users.append(user)
 #     return users
 
-def create_games():
-    games = []
-    for _ in range(10):
-        game = Game(
-            name = fake.sentence(nb_words = 2),
-            image = 'https://www.shutterstock.com/shutterstock/photos/1656207211/display_1500/stock-vector-gamepad-icon-trendy-and-modern-placeholder-symbol-for-logo-web-app-ui-1656207211.jpg'
-        )
-        games.append(game)
-    return games
+# def create_games():
+#     games = []
+#     for _ in range(10):
+#         game = Game(
+#             name = fake.sentence(nb_words = 2),
+#             image = 'https://www.shutterstock.com/shutterstock/photos/1656207211/display_1500/stock-vector-gamepad-icon-trendy-and-modern-placeholder-symbol-for-logo-web-app-ui-1656207211.jpg'
+#         )
+#         games.append(game)
+#     return games
 
 # def create_random_reviews():
 #     reviews = []
@@ -48,10 +48,14 @@ if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
         print("Starting seed...")
-        User.query.delete()
-        Game.query.delete()
-        UserGame.query.delete()
-        Review.query.delete()
+        # User.query.delete()
+        game = Game.query.filter(Game.id == 7).first()
+        user = User.query.filter(User.id == 3).first()
+        db.session.delete(game)
+        db.session.delete(user)
+        # Game.query.delete()
+        # UserGame.query.delete()
+        # Review.query.delete()
 
         # users = create_users()
         # db.session.add_all(users)

@@ -40,7 +40,7 @@ function Login() {
         <div >
             {user ? <Redirect to="/" /> :
             <div>
-                <h1>login page</h1>
+                <h1>Login</h1>
                 <form onSubmit={handleSubmit} >
                     <div className="ui input"> <input type="text" name="username" value={newLogin.username} placeholder="username" autoComplete="off" onChange={handleChange}/> </div>
                     <div className="ui input"> <input type="password" name="password" value={newLogin.password} placeholder="password" onChange={handleChange}/> </div>
